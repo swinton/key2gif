@@ -4,7 +4,9 @@ ObjC.import('stdlib')
 
 
 function run(argv) {
+    finder = Application("Finder");
     keynote = Application("Keynote");
+    dest = $.system('mktemp -d');
 
     running = keynote.running();
     quitWhenDone = !running;
@@ -15,7 +17,7 @@ function run(argv) {
 
     doc = keynote.open(Path(argv[0]));
     doc.export({
-        to: Path("/Users/swinton/Desktop/key2gif"),
+        to: Path(dest),
         as: "slide images",
     }, {
         "image format": "PNG"
@@ -24,4 +26,6 @@ function run(argv) {
     if (quitWhenDone) {
         keynote.quit();
     }
+
+    finder.open(Path(dest));
 }
