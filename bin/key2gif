@@ -1,0 +1,22 @@
+#!/usr/bin/env osascript -l JavaScript
+
+keynote = Application("Keynote");
+
+running = keynote.running();
+quitWhenDone = !running;
+
+if (!running) {
+    keynote.launch();
+}
+
+doc = keynote.open(Path("/Users/swinton/scratch/key2gif/example.key"));
+doc.export({
+    to: Path("/Users/swinton/Desktop/example"),
+    as: "slide images",
+}, {
+    "image format": "PNG"
+});
+
+if (quitWhenDone) {
+    keynote.quit();
+}
