@@ -27,5 +27,10 @@ function run(argv) {
         keynote.quit();
     }
 
+    $.system(
+        "convert -resize 960 -delay 150 -loop 1 %s/*.png %s/key2gif.gif"
+            .replace(/%s/g, dest)
+    );
+
     finder.open(Path(dest));
 }
