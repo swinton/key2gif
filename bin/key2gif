@@ -1,22 +1,27 @@
 #!/usr/bin/env osascript -l JavaScript
 
-keynote = Application("Keynote");
+ObjC.import('stdlib')
 
-running = keynote.running();
-quitWhenDone = !running;
 
-if (!running) {
-    keynote.launch();
-}
+function run(argv) {
+    keynote = Application("Keynote");
 
-doc = keynote.open(Path("/Users/swinton/scratch/key2gif/example.key"));
-doc.export({
-    to: Path("/Users/swinton/Desktop/example"),
-    as: "slide images",
-}, {
-    "image format": "PNG"
-});
+    running = keynote.running();
+    quitWhenDone = !running;
 
-if (quitWhenDone) {
-    keynote.quit();
+    if (!running) {
+        keynote.launch();
+    }
+
+    doc = keynote.open(Path(argv[0]));
+    doc.export({
+        to: Path("/Users/swinton/Desktop/key2gif"),
+        as: "slide images",
+    }, {
+        "image format": "PNG"
+    });
+
+    if (quitWhenDone) {
+        keynote.quit();
+    }
 }
